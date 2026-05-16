@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../../css/login.css">
+    <link rel="icon" type="image/png" href="../../assets/img/logo.png">
+</head>
+<body>
+    <header>
+        <a href="../../../index.html"><img src="../img/Web_Photo_Editor.jpg" alt="logo" class="logo"></a>
+        <nav>
+            <a href="../../../index.html">Home</a>
+            <a href="duvida.html">Dúvida</a>
+            <a href="sobre.html">Sobre</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="form-box">
+            <h2>Login</h2>
+            <p>Faça login  para ver seu cadastro</p>
+
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="email">✉️Email:</label>
+                    <input type="email"  id="email" placeholder="seuemail@.com.br">
+                </div>
+
+                <div class="input-group">
+                    <label for="senha">🔒Senha:</label>
+                    <input type="password" id="password">
+                </div>
+
+                <button type="submit" id="btnLogin">Entrar</button>
+
+                <a href="../../../index.html">Não tem uma conta?</a>
+
+                <div id="message"></div>
+            </form>
+        </section>
+    </main>
+
+    <script src="../../js/login.js"></script>
+</body>
+</html>

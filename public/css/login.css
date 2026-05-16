@@ -1,0 +1,503 @@
+/* ============================================
+   LOGIN PAGE — Cyber Aqua Dark Theme
+   Consistent with index.html color palette
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ── Reset & Variables ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #4facfe;
+  --color-primary-light: #00f2fe;
+  --color-bg-dark: rgba(0, 0, 0, 0.15);
+  --color-bg-dark-hover: rgba(79, 172, 254, 0.06);
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-hover: rgba(79, 172, 254, 0.35);
+  --color-text: #f1f1f1;
+  --color-text-muted: #b3b3b3;
+  --radius: 10px;
+  --transition: 0.3s ease;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  /* Page-specific extras */
+  --page-bg-1: #050d1a;
+  --page-bg-2: #081422;
+  --glow-primary: rgba(79, 172, 254, 0.25);
+  --glow-light: rgba(0, 242, 254, 0.12);
+}
+
+/* ── Base ── */
+html, body {
+  height: 100%;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--color-text);
+  background-color: var(--page-bg-1);
+  overflow-x: hidden;
+}
+
+body {
+  /* Deep space gradient background */
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 10%, rgba(79, 172, 254, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 10% 90%, rgba(0, 242, 254, 0.05) 0%, transparent 55%),
+    linear-gradient(160deg, #050d1a 0%, #071220 50%, #050d1a 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scanline grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Header ── */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  background: rgba(5, 13, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Subtle glowing line under header */
+header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-primary-light), transparent);
+  opacity: 0.4;
+}
+
+.logo {
+  height: 42px;
+  width: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  filter: brightness(0.9) saturate(1.1);
+  transition: filter var(--transition), transform var(--transition);
+}
+
+.logo:hover {
+  filter: brightness(1.1) saturate(1.3);
+  transform: scale(1.03);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+nav a {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: 0.45rem 1rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+nav a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--glow-primary), var(--glow-light));
+  opacity: 0;
+  transition: opacity var(--transition);
+  border-radius: 6px;
+}
+
+nav a:hover {
+  color: var(--color-primary-light);
+  border-color: var(--color-border-hover);
+}
+
+nav a:hover::before {
+  opacity: 1;
+}
+
+/* ── Main / Container ── */
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7rem 1.5rem 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Decorative floating orbs */
+.container::before,
+.container::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.container::before {
+  width: 420px;
+  height: 420px;
+  top: 15%;
+  right: -80px;
+  background: radial-gradient(circle, rgba(79, 172, 254, 0.12) 0%, transparent 70%);
+  animation: orb-drift 8s ease-in-out infinite alternate;
+}
+
+.container::after {
+  width: 300px;
+  height: 300px;
+  bottom: 10%;
+  left: -60px;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, transparent 70%);
+  animation: orb-drift 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes orb-drift {
+  from { transform: translateY(0px) scale(1); }
+  to   { transform: translateY(30px) scale(1.08); }
+}
+
+/* ── Form Box ── */
+.form-box {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(8, 20, 38, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 3rem 2.75rem;
+  box-shadow:
+    var(--shadow),
+    0 0 0 1px rgba(79, 172, 254, 0.04) inset,
+    0 40px 80px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Top accent bar */
+.form-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), var(--color-primary-light), transparent);
+  border-radius: 0 0 4px 4px;
+}
+
+/* Corner glow decoration */
+.form-box::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(79, 172, 254, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.form-box h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+  /* Gradient text */
+  background: linear-gradient(135deg, #ffffff 30%, var(--color-primary-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.form-box > p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: 2.2rem;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+/* ── Form Elements ── */
+#loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.input-group:nth-child(1) { animation-delay: 0.1s; }
+.input-group:nth-child(2) { animation-delay: 0.18s; }
+
+label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  user-select: none;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  background: var(--color-bg-dark);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition:
+    border-color var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+  caret-color: var(--color-primary-light);
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+  color: rgba(179, 179, 179, 0.4);
+  font-size: 0.88rem;
+}
+
+input[type="email"]:hover,
+input[type="password"]:hover {
+  border-color: var(--color-border-hover);
+  background: var(--color-bg-dark-hover);
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: var(--color-primary);
+  background: rgba(79, 172, 254, 0.05);
+  box-shadow:
+    0 0 0 3px rgba(79, 172, 254, 0.1),
+    0 0 20px rgba(79, 172, 254, 0.08);
+}
+
+/* ── Button ── */
+#btnLogin {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  margin-top: 0.5rem;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: #050d1a;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.26s both;
+}
+
+/* Shimmer sweep */
+#btnLogin::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+}
+
+#btnLogin:hover::before {
+  left: 160%;
+}
+
+#btnLogin:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 28px rgba(79, 172, 254, 0.4),
+    0 0 60px rgba(0, 242, 254, 0.15);
+  filter: brightness(1.08);
+}
+
+#btnLogin:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
+}
+
+/* ── "No account?" Link ── */
+#loginForm a {
+  display: block;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  padding: 0.4rem;
+  border-radius: 6px;
+  transition: color var(--transition);
+  letter-spacing: 0.02em;
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
+}
+
+#loginForm a span,
+#loginForm a:hover {
+  color: var(--color-primary-light);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(0, 242, 254, 0.4);
+}
+
+/* ── Botão de Alternância de Tema ── */
+.theme-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: 15px;
+  color: var(--color-text-muted);
+  transition: transform var(--transition), color var(--transition);
+  z-index: 101;
+}
+
+.theme-btn:hover {
+  transform: scale(1.15);
+  color: var(--color-primary-light);
+}
+
+/* ── Modo Claro (Light Mode) ── */
+body.light-mode {
+  --page-bg-1: #f4f7f6;
+  --page-bg-2: #e0eafc;
+  --color-bg-dark: rgba(255, 255, 255, 0.8);
+  --color-bg-dark-hover: rgba(0, 0, 0, 0.05);
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-border-hover: rgba(79, 172, 254, 0.6);
+  --color-text: #1a1a1a;
+  --color-text-muted: #555555;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 10%, rgba(79, 172, 254, 0.05) 0%, transparent 60%),
+    linear-gradient(160deg, #f4f7f6 0%, #e0eafc 100%);
+}
+
+body.light-mode header {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+body.light-mode .form-box {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow), 0 40px 80px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .form-box h2 {
+  background: linear-gradient(135deg, #1a1a1a 30%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+body.light-mode input[type="email"],
+body.light-mode input[type="password"] {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* ── Responsive ── */
+@media (max-width: 520px) {
+  header {
+    padding: 0.85rem 1.25rem;
+  }
+
+  nav a {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.65rem;
+  }
+
+  .form-box {
+    padding: 2.2rem 1.6rem;
+    border-radius: 16px;
+  }
+
+  .form-box h2 {
+    font-size: 1.65rem;
+  }
+}
+
+@media (max-width: 360px) {
+  nav {
+    gap: 0.25rem;
+  }
+
+  nav a {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.5rem;
+    letter-spacing: 0.04em;
+  }
+}

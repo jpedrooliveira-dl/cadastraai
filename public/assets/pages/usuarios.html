@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Administrador</title>
+    <link rel="stylesheet" href="../../css/usuarios.css">
+    <link rel="icon" type="image/png" href="../../assets/img/logo.png">
+    <script src="https://kit.fontawesome.com/94a898f0bf.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <a href="../../../index.html"><img src="../img/Web_Photo_Editor.jpg" alt="logo" class="logo"></a>
+        <nav>
+            <a href="../../../index.html">Home</a>
+            <a href="duvida.html">Dúvida</a>
+            <a href="sobre.html">Sobre</a>
+            <button id="themeToggle" class="theme-btn" title="Alternar Tema"><i class="fa-solid fa-sun"></i></button>
+        </nav>
+    </header>
+
+    <div class="container">
+    <h1>Gerenciamento de usuarios</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Cargo</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaCorpo"></tbody>
+    </table>
+<div class="perfil-actions">
+    <a href="../../../index.html">Voltar</a>
+    <button class="btn-sair" id="bntSair">Sair</button>
+</div>
+</div>
+
+    <script src="../../js/theme.js"></script>
+    <script src="../../js/usuarios.js"></script>
+</body>
+</html>
