@@ -9,7 +9,7 @@ document.getElementById("cadastroForm").addEventListener('submit', async (event)
 
     try {
         console.log("Enviando dados para o servidor na porta 3000...");
-        const response = await fetch('http://localhost:3000/cadastrar', {
+        const response = await fetch('/cadastrar', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

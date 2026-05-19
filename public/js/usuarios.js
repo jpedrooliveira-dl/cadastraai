@@ -8,7 +8,7 @@ async function carregarUsuario () {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/usuarios')
+        const response = await fetch('/usuarios')
         const usuarios = await response.json()
 
         const tabela = document.getElementById("tabelaCorpo")
@@ -41,7 +41,7 @@ async function carregarUsuario () {
 async function confirmarExclusao(id, nome) {
     if (confirm(`Deseja realmente excluir o usuário ${nome}?`)) {
         try {
-            const response = await fetch(`http://localhost:3000/usuarios/${id}`, {
+            const response = await fetch(`/usuarios/${id}`, {
                 method: 'DELETE'
             })
 

@@ -6,8 +6,10 @@ const cors = require('cors')
 const app = express()
 app.use(cors())
 app.use(express.json())
+app.use(express.static('public'))
+app.use(express.static('.'))
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
@@ -17,7 +19,7 @@ const db = mysql.createConnection({
     queueLimit: 0
 })
 
-db.connect((err) => {
+db.getConnection((err, connection) => {
     if (err) {
         console.log(`Erro ao conectar ao servidor ${err.message}`)
         return
