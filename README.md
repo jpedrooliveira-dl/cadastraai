@@ -1,6 +1,6 @@
 # 🚀 Sistema Full-Stack de Cadastro e Controle de Acesso
 
-Um sistema web completo, moderno e seguro desenvolvido como parte dos estudos em **Sistemas de Informação**. O projeto implementa um ecossistema Full-Stack com foco em autenticação, controle de acesso baseado em funções (RBAC), integridade de dados e containerização com **Docker**.
+Um sistema web completo, moderno e seguro desenvolvido como parte dos estudos em **Sistemas de Informação**. O projeto implementa um ecossistema Full-Stack com foco em autenticação, controle de acesso baseado em funções (RBAC), integridade de dados e infraestrutura containerizada com **Docker**.
 
 ## 📷 Screenshot
 
@@ -36,11 +36,13 @@ Interface refinada seguindo uma estética **Minimalista Dark Mode**, com destaqu
 
 ### 🐳 4. Infraestrutura com Docker
 
-- **Containerização completa:** Aplicação Node.js e banco de dados MySQL rodando em containers isolados.
-- **Docker Compose:** Orquestração dos serviços com um único comando.
+- **Containerização completa:** Aplicação Node.js, banco MySQL e Nginx rodando em containers isolados.
+- **Nginx como Proxy Reverso:** Recebe todas as requisições na porta 80 e repassa para o Node internamente — igual a ambientes de produção reais.
+- **Docker Compose:** Orquestração dos 3 serviços com um único comando.
 - **Healthcheck:** O container da aplicação aguarda o banco estar saudável antes de iniciar, eliminando erros de conexão na inicialização.
 - **Volumes persistentes:** Dados do MySQL sobrevivem a reinicializações dos containers.
 - **Pool de conexões:** Conexão com o banco resiliente a quedas e reconexões automáticas.
+- **Auto-restart:** Todos os containers reiniciam automaticamente caso o servidor seja reiniciado.
 
 ---
 
@@ -49,6 +51,7 @@ Interface refinada seguindo uma estética **Minimalista Dark Mode**, com destaqu
 - **Frontend:** HTML5, CSS3 (Efeitos Glow/Neon), JavaScript Nativo (ES6+, Async/Await, Fetch API)
 - **Backend:** Node.js, Express.js (API REST)
 - **Banco de Dados:** MySQL 8
+- **Proxy Reverso:** Nginx
 - **Infraestrutura:** Docker, Docker Compose
 - **Ambiente:** Ubuntu Server, WSL2, Git & GitHub
 
@@ -95,7 +98,7 @@ docker compose up --build -d
 ### 4. Acesse o sistema
 
 ```
-http://localhost:3000
+http://localhost
 ```
 
 ---
@@ -104,6 +107,8 @@ http://localhost:3000
 
 ```
 cadastraai/
+├── nginx/
+│   └── nginx.conf             # Configuração do proxy reverso
 ├── public/
 │   ├── assets/
 │   │   ├── img/               # Logotipos e mídias visuais
@@ -118,10 +123,20 @@ cadastraai/
 ├── index.html                 # Tela principal
 ├── server.js                  # API Backend Node.js + Pool MySQL
 ├── Dockerfile                 # Imagem Docker da aplicação
-├── docker-compose.yml         # Orquestração dos containers
+├── docker-compose.yml         # Orquestração dos containers (Node + MySQL + Nginx)
 ├── .env.example               # Modelo de variáveis de ambiente
 └── README.md
 ```
+
+---
+
+## 🏗️ Arquitetura
+
+```
+Navegador → Nginx (:80) → Node.js (:3000) → MySQL (:3306)
+```
+
+O Nginx recebe todas as requisições e faz o proxy para o Node.js, que por sua vez se comunica com o MySQL. Nenhum serviço interno é exposto diretamente ao exterior.
 
 ---
 

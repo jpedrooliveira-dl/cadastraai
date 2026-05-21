@@ -22,13 +22,22 @@ services:
     build: .
     container_name: cadastraai-app
     restart: always
-    ports:
-      - "3000:3000"
     env_file:
       - .env
     depends_on:
       mysql:
         condition: service_healthy
+
+  nginx:
+    image: nginx:alpine
+    container_name: cadastraai-nginx
+    restart: always
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
 
 volumes:
   db_data:
