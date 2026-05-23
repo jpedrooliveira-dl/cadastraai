@@ -37,12 +37,18 @@ Interface refinada seguindo uma estética **Minimalista Dark Mode**, com destaqu
 ### 🐳 4. Infraestrutura com Docker
 
 - **Containerização completa:** Aplicação Node.js, banco MySQL e Nginx rodando em containers isolados.
-- **Nginx como Proxy Reverso:** Recebe todas as requisições na porta 80 e repassa para o Node internamente — igual a ambientes de produção reais.
+- **Nginx como Proxy Reverso:** Recebe todas as requisições e repassa para o Node internamente — igual a ambientes de produção reais.
 - **Docker Compose:** Orquestração dos 3 serviços com um único comando.
 - **Healthcheck:** O container da aplicação aguarda o banco estar saudável antes de iniciar, eliminando erros de conexão na inicialização.
 - **Volumes persistentes:** Dados do MySQL sobrevivem a reinicializações dos containers.
 - **Pool de conexões:** Conexão com o banco resiliente a quedas e reconexões automáticas.
 - **Auto-restart:** Todos os containers reiniciam automaticamente caso o servidor seja reiniciado.
+
+### 🔐 5. Segurança de Credenciais
+
+- **Variáveis de ambiente:** Todas as senhas e credenciais ficam exclusivamente no arquivo `.env`, que nunca é versionado no Git.
+- **`.env.example`:** Arquivo modelo commitado no repositório com as chaves necessárias mas sem valores — permite que qualquer pessoa clone e configure o projeto facilmente.
+- **Zero credenciais no código:** O `docker-compose.yml` usa `${VARIAVEL}` para ler os valores do `.env` em tempo de execução.
 
 ---
 
@@ -82,9 +88,11 @@ Edite o `.env` com suas configurações:
 ```env
 PORT=3000
 DB_HOST=mysql
-DB_USER=cadastraai
+DB_USER=seu_usuario
 DB_PASS=sua_senha
 DB_NAME=cadastraai
+MYSQL_ROOT_PASSWORD=sua_senha_root
+MYSQL_PASSWORD=sua_senha
 ```
 
 > ⚠️ `DB_HOST=mysql` é o nome do container — não use `localhost`!
@@ -124,7 +132,8 @@ cadastraai/
 ├── server.js                  # API Backend Node.js + Pool MySQL
 ├── Dockerfile                 # Imagem Docker da aplicação
 ├── docker-compose.yml         # Orquestração dos containers (Node + MySQL + Nginx)
-├── .env.example               # Modelo de variáveis de ambiente
+├── .env.example               # Modelo de variáveis de ambiente (sem valores sensíveis)
+├── .env                       # Variáveis reais — NÃO versionado no Git
 └── README.md
 ```
 
@@ -136,7 +145,7 @@ cadastraai/
 Navegador → Nginx (:80) → Node.js (:3000) → MySQL (:3306)
 ```
 
-O Nginx recebe todas as requisições e faz o proxy para o Node.js, que por sua vez se comunica com o MySQL. Nenhum serviço interno é exposto diretamente ao exterior.
+O Nginx recebe todas as requisições e faz o proxy para o Node.js, que por sua vez se comunica com o MySQL. Nenhum serviço interno é exposto diretamente ao exterior. As credenciais nunca aparecem no código — são injetadas via variáveis de ambiente em tempo de execução.
 
 ---
 
