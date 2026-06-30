@@ -371,3 +371,26 @@ body.light-mode h2 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+.senha-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.senha-wrapper input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.senha-wrapper i {
+    position: absolute;
+    right: 12px;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.senha-wrapper i:hover {
+    color: #00e5ff;
+}

@@ -66,3 +66,13 @@ inputTelefone.addEventListener('input', (e) => {
     
     e.target.value = value;
 });
+
+ const toggleSenha = document.getElementById('toggleSenha')
+ const senha = document.getElementById('senha')
+
+ toggleSenha.addEventListener('click', () => {
+    const tipoSenha = senha.getAttribute('type') === 'password' ? 'text' : 'password'
+    senha.setAttribute('type', tipoSenha)
+    toggleSenha.classList.toggle('fa-eye')
+    toggleSenha.classList.toggle('fa-eye-slash')
+ })
